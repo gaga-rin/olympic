@@ -15,7 +15,7 @@
             >
                 <td style="padding: 15px">{{ player.name }}</td>
                 <td style="padding: 15px">{{ odds(player.num_of_vote) }}</td>
-                <td style="padding: 15px">{{ player.num_of_vote }}票</td>
+                <td style="padding: 15px">{{ player.num_of_vote }}票（+{{ user_votes[index] }}）</td>
                 <td><button @click="vote(index)" class="button is-primary">Bet</button></td>
             </tbody>
         </table>
@@ -34,6 +34,7 @@ export default {
     data() {
         return {
             players: [],
+            user_votes: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             refundment_rate: 0.8,
             unit_price: 500,
             bet_price: 0,
@@ -72,6 +73,7 @@ export default {
         vote: function(index) {
             this.players[index].num_of_vote += 1;
             this.bet_price += this.unit_price;
+            this.user_votes[index] += 1;
         },
         saveVoute: function() {
             this.$axios
@@ -86,6 +88,7 @@ export default {
         },
         clearVote: function () {
             this.getPlayersList();
+            this.user_votes = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         },
         odds: function(vote) {
             if (vote == 0) {

@@ -2,7 +2,7 @@
     <div class="hero">
         <div class="hero-head">
             <div class="container">
-                <h1 class="title is-centered">ブックメーカー in アイエンター</h1>
+                <h1 class="title is-centered" style="margin-top: 50px">ブックメーカー in アイエンター</h1>
                 <h2 class="subtitle">東京オリンピックの金メダル予想</h2>
             </div>
         </div>
@@ -48,14 +48,6 @@ export default {
         return {
             isActive: 'swiming'
         }
-    },
-    computed: {
-    },
-    filters: {
-    },
-    mounted: function() {
-    },
-    methods: {
     }
 }
 </script>

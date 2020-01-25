@@ -1958,11 +1958,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isActive: 'swiming'
     };
-  },
-  computed: {},
-  filters: {},
-  mounted: function mounted() {},
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -2114,6 +2110,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       players: [],
+      user_votes: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       refundment_rate: 0.8,
       unit_price: 500,
       bet_price: 0
@@ -2150,6 +2147,7 @@ __webpack_require__.r(__webpack_exports__);
     vote: function vote(index) {
       this.players[index].num_of_vote += 1;
       this.bet_price += this.unit_price;
+      this.user_votes[index] += 1;
     },
     saveVoute: function saveVoute() {
       var _this2 = this;
@@ -2165,6 +2163,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     clearVote: function clearVote() {
       this.getPlayersList();
+      this.user_votes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     },
     odds: function odds(vote) {
       if (vote == 0) {
@@ -19861,9 +19860,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "hero-head" }, [
       _c("div", { staticClass: "container" }, [
-        _c("h1", { staticClass: "title is-centered" }, [
-          _vm._v("ブックメーカー in アイエンター")
-        ]),
+        _c(
+          "h1",
+          {
+            staticClass: "title is-centered",
+            staticStyle: { "margin-top": "50px" }
+          },
+          [_vm._v("ブックメーカー in アイエンター")]
+        ),
         _vm._v(" "),
         _c("h2", { staticClass: "subtitle" }, [
           _vm._v("東京オリンピックの金メダル予想")
@@ -20038,7 +20042,12 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("td", { staticStyle: { padding: "15px" } }, [
-              _vm._v(_vm._s(player.num_of_vote) + "票")
+              _vm._v(
+                _vm._s(player.num_of_vote) +
+                  "票（+" +
+                  _vm._s(_vm.user_votes[index]) +
+                  "）"
+              )
             ]),
             _vm._v(" "),
             _c("td", [
