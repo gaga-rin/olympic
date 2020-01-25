@@ -2009,7 +2009,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       players: [],
       refundment_rate: 0.8,
-      unit_price: 500
+      unit_price: 500,
+      bet_price: 0
     };
   },
   computed: {
@@ -2034,18 +2035,23 @@ __webpack_require__.r(__webpack_exports__);
       this.$axios.get('api/players/list').then(function (res) {
         console.log(res.data);
         _this.players = res.data;
+        _this.bet_price = 0;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     vote: function vote(index) {
       this.players[index].num_of_vote += 1;
+      this.bet_price += this.unit_price;
     },
     saveVoute: function saveVoute() {
+      var _this2 = this;
+
       this.$axios.post('api/players/save', {
         players: this.players
       }).then(function (res) {
         console.log('players save success');
+        _this2.bet_price = 0;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2101,6 +2107,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {},
@@ -2108,7 +2115,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       players: [],
       refundment_rate: 0.8,
-      unit_price: 500
+      unit_price: 500,
+      bet_price: 0
     };
   },
   computed: {
@@ -2134,18 +2142,23 @@ __webpack_require__.r(__webpack_exports__);
       this.$axios.get('api/players/list').then(function (res) {
         console.log(res.data);
         _this.players = res.data;
+        _this.bet_price = 0;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     vote: function vote(index) {
       this.players[index].num_of_vote += 1;
+      this.bet_price += this.unit_price;
     },
     saveVoute: function saveVoute() {
+      var _this2 = this;
+
       this.$axios.post('api/players/save', {
         players: this.players
       }).then(function (res) {
         console.log('players save success');
+        _this2.bet_price = 0;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -19881,9 +19894,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "box is-centered" }, [
-    _c("span", [
+    _c("span", { staticStyle: { "font-weight": "bold" } }, [
       _vm._v("払い戻し総額：" + _vm._s(_vm.sum_refundment_price) + "円")
     ]),
+    _vm._v(" "),
+    _c(
+      "span",
+      { staticStyle: { "font-weight": "bold", "margin-left": "50px" } },
+      [_vm._v("賭け金：" + _vm._s(_vm.bet_price) + "円")]
+    ),
     _vm._v(" "),
     _c(
       "table",
@@ -19992,9 +20011,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "box is-centered" }, [
-    _c("span", [
+    _c("span", { staticStyle: { "font-weight": "bold" } }, [
       _vm._v("払い戻し総額：" + _vm._s(_vm.sum_refundment_price) + "円")
     ]),
+    _vm._v(" "),
+    _c(
+      "span",
+      { staticStyle: { "font-weight": "bold", "margin-left": "50px" } },
+      [_vm._v("賭け金：" + _vm._s(_vm.bet_price) + "円")]
+    ),
     _vm._v(" "),
     _c(
       "table",

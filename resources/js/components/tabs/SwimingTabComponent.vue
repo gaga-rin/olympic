@@ -1,6 +1,7 @@
 <template>
     <div class="box is-centered">
-        <span>払い戻し総額：{{ sum_refundment_price }}円</span>
+        <span style="font-weight: bold">払い戻し総額：{{ sum_refundment_price }}円</span>
+        <span style="font-weight: bold; margin-left: 50px;">賭け金：{{ bet_price }}円</span>
         <table class="table">
             <thead>
                 <th>選手名</th>
@@ -34,7 +35,8 @@ export default {
         return {
             players: [],
             refundment_rate: 0.8,
-            unit_price: 500
+            unit_price: 500,
+            bet_price: 0,
         }
     },
     computed: {
@@ -61,19 +63,22 @@ export default {
                 .then(res => {
                     console.log(res.data);
                     this.players = res.data;
+                    this.bet_price = 0;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
         vote: function(index) {
-            this.players[index].num_of_vote +=1;
+            this.players[index].num_of_vote += 1;
+            this.bet_price += this.unit_price;
         },
         saveVoute: function() {
             this.$axios
                 .post('api/players/save', {players: this.players})
                 .then(res => {
                     console.log('players save success');
+                    this.bet_price = 0;
                 })
                 .catch(function (error) {
                     console.log(error);
