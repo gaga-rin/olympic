@@ -1908,6 +1908,79 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _tabs_SwimingTabComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tabs/SwimingTabComponent.vue */ "./resources/js/components/tabs/SwimingTabComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    "swiming-tab-component": _tabs_SwimingTabComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {},
+  data: function data() {
+    return {
+      isActive: 'swiming'
+    };
+  },
+  computed: {},
+  filters: {},
+  mounted: function mounted() {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1923,11 +1996,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
+  props: {},
   data: function data() {
     return {
-      players: []
+      players: [],
+      refundment_rate: 0.8,
+      unit_price: 500
     };
   },
+  computed: {
+    sum_vote: function sum_vote() {
+      var sum_vote = 0;
+      this.players.forEach(function (element) {
+        sum_vote += element.num_of_vote;
+      });
+      return sum_vote;
+    },
+    sum_refundment_price: function sum_refundment_price() {
+      return this.sum_vote * this.unit_price * this.refundment_rate;
+    }
+  },
+  filters: {},
   mounted: function mounted() {
     this.getPlayersList();
   },
@@ -1945,7 +2034,7 @@ __webpack_require__.r(__webpack_exports__);
     vote: function vote(index) {
       this.players[index].num_of_vote += 1;
     },
-    savePlayers: function savePlayers() {
+    saveVoute: function saveVoute() {
       this.$axios.post('api/players/save', {
         players: this.players
       }).then(function (res) {
@@ -1953,6 +2042,17 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    clearVote: function clearVote() {
+      this.getPlayersList();
+    },
+    odds: function odds(vote) {
+      if (vote == 0) {
+        return 0;
+      }
+
+      var odds = this.refundment_rate * this.sum_vote / vote;
+      return Math.round(odds * 10) / 10;
     }
   }
 });
@@ -19558,50 +19658,182 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm._l(_vm.players, function(player, index) {
-        return _c(
-          "button",
-          {
-            key: player.id,
-            on: {
-              click: function($event) {
-                return _vm.vote(index)
-              }
-            }
-          },
-          [
-            _vm._v(
-              "\n        " +
-                _vm._s(player.name) +
-                "-" +
-                _vm._s(player.num_of_vote) +
-                "\n    "
-            )
-          ]
+  return _c("div", { staticClass: "hero" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "hero-body" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "tabs" }, [
+          _c("ul", [
+            _c("li", { class: { "is-active": _vm.isActive == "swiming" } }, [
+              _c(
+                "a",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.isActive = "swiming"
+                    }
+                  }
+                },
+                [_c("span", [_vm._v("水泳")])]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { class: { "is-active": _vm.isActive == "running" } }, [
+              _c(
+                "a",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.isActive = "running"
+                    }
+                  }
+                },
+                [_c("span", [_vm._v("陸上")])]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "tab-contents" },
+          [_c("swiming-tab-component")],
+          1
         )
-      }),
-      _vm._v(" "),
-      _c("br"),
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "hero-head" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("h1", { staticClass: "title is-centered" }, [
+          _vm._v("ブックメーカー in アイエンター")
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "subtitle" }, [
+          _vm._v("東京オリンピックの金メダル予想")
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=template&id=2bf410fc&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=template&id=2bf410fc& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "box is-centered" }, [
+    _c("span", [
+      _vm._v("払い戻し総額：" + _vm._s(_vm.sum_refundment_price) + "円")
+    ]),
+    _vm._v(" "),
+    _c(
+      "table",
+      { staticClass: "table" },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._l(_vm.players, function(player, index) {
+          return _c("tbody", { key: player.id }, [
+            _c("td", { staticStyle: { padding: "15px" } }, [
+              _vm._v(_vm._s(player.name))
+            ]),
+            _vm._v(" "),
+            _c("td", { staticStyle: { padding: "15px" } }, [
+              _vm._v(_vm._s(_vm.odds(player.num_of_vote)))
+            ]),
+            _vm._v(" "),
+            _c("td", { staticStyle: { padding: "15px" } }, [
+              _vm._v(_vm._s(player.num_of_vote) + "票")
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "button is-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.vote(index)
+                    }
+                  }
+                },
+                [_vm._v("Bet")]
+              )
+            ])
+          ])
+        })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "is-centered" }, [
+      _c(
+        "button",
+        {
+          staticClass: "button is-primary",
+          on: {
+            click: function($event) {
+              return _vm.saveVoute()
+            }
+          }
+        },
+        [_vm._v("Bet完了")]
+      ),
       _vm._v(" "),
       _c(
         "button",
         {
+          staticClass: "button is-danger",
           on: {
             click: function($event) {
-              return _vm.savePlayers()
+              return _vm.clearVote()
             }
           }
         },
-        [_vm._v("保存")]
+        [_vm._v("Betリセット")]
       )
-    ],
-    2
-  )
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", [_vm._v("選手名")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("オッズ")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("得票数")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Betボタン")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -31886,6 +32118,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_template_id_754b2df6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_template_id_754b2df6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/tabs/SwimingTabComponent.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/tabs/SwimingTabComponent.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SwimingTabComponent_vue_vue_type_template_id_2bf410fc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SwimingTabComponent.vue?vue&type=template&id=2bf410fc& */ "./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=template&id=2bf410fc&");
+/* harmony import */ var _SwimingTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SwimingTabComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SwimingTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SwimingTabComponent_vue_vue_type_template_id_2bf410fc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SwimingTabComponent_vue_vue_type_template_id_2bf410fc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/tabs/SwimingTabComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SwimingTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./SwimingTabComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SwimingTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=template&id=2bf410fc&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=template&id=2bf410fc& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SwimingTabComponent_vue_vue_type_template_id_2bf410fc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./SwimingTabComponent.vue?vue&type=template&id=2bf410fc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabs/SwimingTabComponent.vue?vue&type=template&id=2bf410fc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SwimingTabComponent_vue_vue_type_template_id_2bf410fc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SwimingTabComponent_vue_vue_type_template_id_2bf410fc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

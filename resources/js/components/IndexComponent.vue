@@ -1,53 +1,56 @@
 <template>
-    <div>
-        <button
-            v-for="(player, index) in players"
-            :key="player.id"
-            @click="vote(index)"
-        >
-            {{ player.name }}-{{player.num_of_vote}}
-        </button>
-        <br>
-        <button @click="savePlayers()">保存</button>
+    <div class="hero">
+        <div class="hero-head">
+            <div class="container">
+                <h1 class="title is-centered">ブックメーカー in アイエンター</h1>
+                <h2 class="subtitle">東京オリンピックの金メダル予想</h2>
+            </div>
+        </div>
+        <div class="hero-body">
+            <div class="container">
+                <div class="tabs">
+                    <ul>
+                        <li :class="{ 'is-active': isActive == 'swiming'}">
+                            <a @click="isActive = 'swiming'">
+                                <span>水泳</span>
+                            </a>
+                        </li>
+                        <li :class="{ 'is-active': isActive == 'running'}">
+                            <a @click="isActive = 'running'">
+                                <span>陸上</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-contents">
+                    <swiming-tab-component></swiming-tab-component>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
+import swimingTabComponent from './tabs/SwimingTabComponent.vue'
 export default {
     components: {
+        "swiming-tab-component": swimingTabComponent
+    },
+    props: {
     },
     data() {
         return {
-            players: []
+            isActive: 'swiming'
         }
+    },
+    computed: {
+    },
+    filters: {
     },
     mounted: function() {
-        this.getPlayersList();
     },
     methods: {
-        getPlayersList: function() {
-            this.$axios
-                .get('api/players/list')
-                .then(res => {
-                    console.log(res.data);
-                    this.players = res.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        },
-        vote: function(index) {
-            this.players[index].num_of_vote +=1;
-        },
-        savePlayers: function() {
-            this.$axios
-                .post('api/players/save', {players: this.players})
-                .then(res => {
-                    console.log('players save success');
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }
     }
 }
 </script>
+<style>
+</style>
