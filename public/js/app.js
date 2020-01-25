@@ -1919,6 +1919,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   data: function data() {
@@ -1927,18 +1929,30 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    this.$axios.get('json/players.json').then(function (res) {
-      console.log(res.data);
-      _this.players = res.data;
-    })["catch"](function (error) {
-      console.log(error);
-    });
+    this.getPlayersList();
   },
   methods: {
+    getPlayersList: function getPlayersList() {
+      var _this = this;
+
+      this.$axios.get('api/players/list').then(function (res) {
+        console.log(res.data);
+        _this.players = res.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     vote: function vote(index) {
       this.players[index].num_of_vote += 1;
+    },
+    savePlayers: function savePlayers() {
+      this.$axios.post('api/players/save', {
+        players: this.players
+      }).then(function (res) {
+        console.log('players save success');
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -19546,29 +19560,45 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.players, function(player, index) {
-      return _c(
+    [
+      _vm._l(_vm.players, function(player, index) {
+        return _c(
+          "button",
+          {
+            key: player.id,
+            on: {
+              click: function($event) {
+                return _vm.vote(index)
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\n        " +
+                _vm._s(player.name) +
+                "-" +
+                _vm._s(player.num_of_vote) +
+                "\n    "
+            )
+          ]
+        )
+      }),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
         "button",
         {
-          key: player.id,
           on: {
             click: function($event) {
-              return _vm.vote(index)
+              return _vm.savePlayers()
             }
           }
         },
-        [
-          _vm._v(
-            "\n        " +
-              _vm._s(player.name) +
-              "-" +
-              _vm._s(player.num_of_vote) +
-              "\n    "
-          )
-        ]
+        [_vm._v("保存")]
       )
-    }),
-    0
+    ],
+    2
   )
 }
 var staticRenderFns = []

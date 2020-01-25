@@ -7,6 +7,8 @@
         >
             {{ player.name }}-{{player.num_of_vote}}
         </button>
+        <br>
+        <button @click="savePlayers()">保存</button>
     </div>
 </template>
 <script>
@@ -19,22 +21,33 @@ export default {
         }
     },
     mounted: function() {
-        this.$axios
-            .get('json/players.json')
-            .then(res => {
-                console.log(res.data);
-                this.players = res.data;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
+        this.getPlayersList();
     },
     methods: {
-        vote (index) {
+        getPlayersList: function() {
+            this.$axios
+                .get('api/players/list')
+                .then(res => {
+                    console.log(res.data);
+                    this.players = res.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        vote: function(index) {
             this.players[index].num_of_vote +=1;
+        },
+        savePlayers: function() {
+            this.$axios
+                .post('api/players/save', {players: this.players})
+                .then(res => {
+                    console.log('players save success');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
-
     }
 }
 </script>
