@@ -1913,10 +1913,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   data: function data() {
-    return {};
+    return {
+      players: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$axios.get('json/players.json').then(function (res) {
+      console.log(res.data);
+      _this.players = res.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  methods: {
+    vote: function vote(index) {
+      this.players[index].num_of_vote += 1;
+    }
   }
 });
 
@@ -19521,7 +19544,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    オリンピックアプリ\n")])
+  return _c(
+    "div",
+    _vm._l(_vm.players, function(player, index) {
+      return _c(
+        "button",
+        {
+          key: player.id,
+          on: {
+            click: function($event) {
+              return _vm.vote(index)
+            }
+          }
+        },
+        [
+          _vm._v(
+            "\n        " +
+              _vm._s(player.name) +
+              "-" +
+              _vm._s(player.num_of_vote) +
+              "\n    "
+          )
+        ]
+      )
+    }),
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -31698,9 +31746,13 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$axios = axios__WEBPACK_IMPORTED_MODULE_1___default.a;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('index-component', __webpack_require__(/*! ./components/IndexComponent.vue */ "./resources/js/components/IndexComponent.vue")["default"]);
 var main = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app'
