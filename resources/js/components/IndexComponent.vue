@@ -23,7 +23,12 @@
                     </ul>
                 </div>
                 <div class="tab-contents">
-                    <swiming-tab-component></swiming-tab-component>
+                    <div class="content" v-show="isActive == 'swiming'">
+                        <swiming-tab-component></swiming-tab-component>
+                    </div>
+                    <div class="content"  v-show="isActive == 'running'">
+                        <running-tab-component></running-tab-component>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,9 +36,11 @@
 </template>
 <script>
 import swimingTabComponent from './tabs/SwimingTabComponent.vue'
+import RunningTabComponent from './tabs/RunningTabComponent.vue'
 export default {
     components: {
-        "swiming-tab-component": swimingTabComponent
+        "swiming-tab-component": swimingTabComponent,
+        "running-tab-component": RunningTabComponent
     },
     props: {
     },

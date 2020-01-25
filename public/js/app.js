@@ -1909,6 +1909,12 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tabs_SwimingTabComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tabs/SwimingTabComponent.vue */ "./resources/js/components/tabs/SwimingTabComponent.vue");
+/* harmony import */ var _tabs_RunningTabComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tabs/RunningTabComponent.vue */ "./resources/js/components/tabs/RunningTabComponent.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1941,9 +1947,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    "swiming-tab-component": _tabs_SwimingTabComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    "swiming-tab-component": _tabs_SwimingTabComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    "running-tab-component": _tabs_RunningTabComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {},
   data: function data() {
@@ -1955,6 +1963,105 @@ __webpack_require__.r(__webpack_exports__);
   filters: {},
   mounted: function mounted() {},
   methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabs/RunningTabComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabs/RunningTabComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {},
+  props: {},
+  data: function data() {
+    return {
+      players: [],
+      refundment_rate: 0.8,
+      unit_price: 500
+    };
+  },
+  computed: {
+    sum_vote: function sum_vote() {
+      var sum_vote = 0;
+      this.players.forEach(function (element) {
+        sum_vote += element.num_of_vote;
+      });
+      return sum_vote;
+    },
+    sum_refundment_price: function sum_refundment_price() {
+      return this.sum_vote * this.unit_price * this.refundment_rate;
+    }
+  },
+  filters: {},
+  mounted: function mounted() {// this.getPlayersList();
+  },
+  methods: {
+    getPlayersList: function getPlayersList() {
+      var _this = this;
+
+      this.$axios.get('api/players/list').then(function (res) {
+        console.log(res.data);
+        _this.players = res.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    vote: function vote(index) {
+      this.players[index].num_of_vote += 1;
+    },
+    saveVoute: function saveVoute() {
+      this.$axios.post('api/players/save', {
+        players: this.players
+      }).then(function (res) {
+        console.log('players save success');
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    clearVote: function clearVote() {
+      this.getPlayersList();
+    },
+    odds: function odds(vote) {
+      if (vote == 0) {
+        return 0;
+      }
+
+      var odds = this.refundment_rate * this.sum_vote / vote;
+      return Math.round(odds * 10) / 10;
+    }
+  }
 });
 
 /***/ }),
@@ -19695,12 +19802,41 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "tab-contents" },
-          [_c("swiming-tab-component")],
-          1
-        )
+        _c("div", { staticClass: "tab-contents" }, [
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isActive == "swiming",
+                  expression: "isActive == 'swiming'"
+                }
+              ],
+              staticClass: "content"
+            },
+            [_c("swiming-tab-component")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isActive == "running",
+                  expression: "isActive == 'running'"
+                }
+              ],
+              staticClass: "content"
+            },
+            [_c("running-tab-component")],
+            1
+          )
+        ])
       ])
     ])
   ])
@@ -19720,6 +19856,117 @@ var staticRenderFns = [
           _vm._v("東京オリンピックの金メダル予想")
         ])
       ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabs/RunningTabComponent.vue?vue&type=template&id=0954b73e&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabs/RunningTabComponent.vue?vue&type=template&id=0954b73e& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "box is-centered" }, [
+    _c("span", [
+      _vm._v("払い戻し総額：" + _vm._s(_vm.sum_refundment_price) + "円")
+    ]),
+    _vm._v(" "),
+    _c(
+      "table",
+      { staticClass: "table" },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._l(_vm.players, function(player, index) {
+          return _c("tbody", { key: player.id }, [
+            _c("td", { staticStyle: { padding: "15px" } }, [
+              _vm._v(_vm._s(player.name))
+            ]),
+            _vm._v(" "),
+            _c("td", { staticStyle: { padding: "15px" } }, [
+              _vm._v(_vm._s(_vm.odds(player.num_of_vote)))
+            ]),
+            _vm._v(" "),
+            _c("td", { staticStyle: { padding: "15px" } }, [
+              _vm._v(_vm._s(player.num_of_vote) + "票")
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "button is-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.vote(index)
+                    }
+                  }
+                },
+                [_vm._v("Bet")]
+              )
+            ])
+          ])
+        })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "is-centered" }, [
+      _c(
+        "button",
+        {
+          staticClass: "button is-primary",
+          on: {
+            click: function($event) {
+              return _vm.saveVoute()
+            }
+          }
+        },
+        [_vm._v("Bet完了")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "button is-danger",
+          on: {
+            click: function($event) {
+              return _vm.clearVote()
+            }
+          }
+        },
+        [_vm._v("Betリセット")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", [_vm._v("選手名")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("オッズ")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("得票数")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Betボタン")])
     ])
   }
 ]
@@ -32118,6 +32365,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_template_id_754b2df6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_template_id_754b2df6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/tabs/RunningTabComponent.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/tabs/RunningTabComponent.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _RunningTabComponent_vue_vue_type_template_id_0954b73e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RunningTabComponent.vue?vue&type=template&id=0954b73e& */ "./resources/js/components/tabs/RunningTabComponent.vue?vue&type=template&id=0954b73e&");
+/* harmony import */ var _RunningTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RunningTabComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/tabs/RunningTabComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _RunningTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RunningTabComponent_vue_vue_type_template_id_0954b73e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RunningTabComponent_vue_vue_type_template_id_0954b73e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/tabs/RunningTabComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tabs/RunningTabComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/tabs/RunningTabComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RunningTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./RunningTabComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabs/RunningTabComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RunningTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tabs/RunningTabComponent.vue?vue&type=template&id=0954b73e&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/tabs/RunningTabComponent.vue?vue&type=template&id=0954b73e& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RunningTabComponent_vue_vue_type_template_id_0954b73e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./RunningTabComponent.vue?vue&type=template&id=0954b73e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabs/RunningTabComponent.vue?vue&type=template&id=0954b73e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RunningTabComponent_vue_vue_type_template_id_0954b73e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RunningTabComponent_vue_vue_type_template_id_0954b73e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
