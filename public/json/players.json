@@ -1,12 +1,10 @@
 [
     {
-        "name": "test1",
-        "num_of_vote": 0,
-        "rate": 0
+        "name": "プレイヤー１号",
+        "num_of_vote": 0
     },
     {
-        "name": "test2",
-        "num_of_vote": 0,
-        "rate": 0
+        "name": "プレイヤー２号",
+        "num_of_vote": 0
     }
 ]
